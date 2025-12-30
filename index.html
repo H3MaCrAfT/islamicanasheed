@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أناشيد إٍسلامية</title>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+body {background-color:#f9f9f9;color:#333;transition:0.3s;}
+header {background-color:#1a73e8;color:white;padding:20px;text-align:center;font-size:2rem;}
+header button {margin-left:10px;padding:5px 10px;cursor:pointer;font-size:0.9rem;}
+#toggle-mode {padding:10px 15px;border:2px solid #003780;background-color:#0047a3;color:white;border-radius:0 5px 5px 0;cursor:pointer;}
+#search-bar, #filter-bar {width:80%;max-width:500px;margin:10px auto;display:flex;gap:5px;}
+#search-bar input, #filter-bar select {flex:1;padding:10px;border:2px solid #1a73e8;border-radius:5px;outline:none;}
+#search-bar button {padding:10px 15px;border:2px solid #1a73e8;background-color:#1a73e8;color:white;border-radius:5px;cursor:pointer;}
+.playlist {display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px;}
+.song {width:200px;background:white;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);overflow:hidden;transition:0.2s;position:relative;}
+.song:hover {transform:scale(1.05);}
+.song img {width:100%;height:150px;object-fit:cover;}
+.song .info {padding:10px;text-align:center;}
+.song .info h3 {font-size:1.1rem;margin-bottom:5px;}
+.song .info p.category {font-size:0.9rem;color:#555;margin-bottom:5px;}
+.song .info button {padding:5px 10px;background-color:#1a73e8;color:white;border:none;border-radius:5px;cursor:pointer;margin-bottom:5px;}
+.like-btn {position:absolute;top:10px;left:10px;background-color:#ff4b5c;color:white;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;}
+#audio-player {position:fixed;bottom:0;width:100%;background-color:#1a73e8;color:white;padding:10px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+#audio-player audio {width:70%;}
+.time-info {font-size:0.9rem;}
+.download-btn {
+  display:inline-block;
+  padding:5px 10px;
+  background-color:#28a745;
+  color:white;
+  border-radius:5px;
+  text-decoration:none;
+  cursor:pointer;
+  margin-bottom:5px;
+  font-size:0.9rem;
+}
+.download-btn:hover {
+  background-color:#218838;
+}
+.dark-mode {background-color:#121212;color:#f9f9f9;}
+.dark-mode .song {background-color:#1e1e1e;box-shadow:0 0 10px rgba(255,255,255,0.1);}
+.dark-mode #audio-player {background-color:#333;}
+@media(max-width:600px){.song {width:90%;} #audio-player audio {width:60%;}}
+</style>
+</head>
+<body>
+<header>
+    <button id="toggle-mode">وضع ليلي</button>
+  اناشيد 
+<p>الهدف : تقليل الاغاني</p>
+</header>
+
+<div id="search-bar">
+  <input type="text" id="search" placeholder="ابحث عن نشيد...">
+  <button onclick="searchSong()">بحث</button>
+</div>
+
+<div id="filter-bar">
+  <select id="categoryFilter" onchange="filterByCategory()">
+    <option value="all">كل الفئات</option>
+    <option value="مؤسسة أجناد">مؤسسة أجناد</option>
+    <option value="إذاعة البيان">إذاعة البيان</option>
+    <option value="أصداء">مؤسسة أصداء</option>
+  </select>
+</div>
+<div class="playlist" id="playlist">
+  <!-- النشيد 1 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 1">
+    <div class="info">
+      <h3>دولة الإسلام صولي</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song1.mp3')">تشغيل</button>
+      <a href="song1.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 2 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 2">
+    <div class="info">
+      <h3>دارت رحاها</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song2.mp3')">تشغيل</button>
+      <a href="song2.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 3 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 3">
+    <div class="info">
+      <h3>قد تسامى</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song3.mp3')">تشغيل</button>
+      <a href="song3.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 4 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 4">
+    <div class="info">
+      <h3>قد عزمنا</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song4.mp3')">تشغيل</button>
+    <a href="song4.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 5 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 5">
+    <div class="info">
+      <h3>كالصاعقات المرعبات</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song5.mp3')">تشغيل</button>
+    <a href="song5.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 6 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 6">
+    <div class="info">
+      <h3>المسلم بر أواب</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song6.mp3')">تشغيل</button>
+      <a href="song6.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 7 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 7">
+    <div class="info">
+      <h3>اغزوا عليهم</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song7.mp3')">تشغيل</button>
+    <a href="song7.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 8 -->
+  <div class="song">
+    <img src="Logo.jpg" alt="نشيد 8">
+    <div class="info">
+      <h3>أمتي قد لاح فجرٌ</h3>
+      <p class="category">مؤسسة أجناد</p>
+      <button onclick="playSong('song8.mp3')">تشغيل</button>
+      <a href="song8.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 9 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 9">
+    <div class="info">
+      <h3>أخي أبلغ هنا الاصحاب</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song9.mp3')">تشغيل</button>
+      <a href="song9.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 10 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 10">
+    <div class="info">
+      <h3>الله اكبر ،حطم دولة الصنم</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song10.mp3')">تشغيل</button>
+      <a href="song10.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 11 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 11">
+    <div class="info">
+      <h3>النصر توالى</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song11.mp3')">تشغيل</button>
+    <a href="song11.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 12 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 12">
+    <div class="info">
+      <h3>ثائر من تورا بورا</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song12.mp3')">تشغيل</button>
+            <a href="song12.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 13 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 13">
+    <div class="info">
+      <h3>سرايا دولتي هيا</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song13.mp3')">تشغيل</button>
+            <a href="song13.mp3" download class="download-btn">تحميل</a>
+
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 14 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 14">
+    <div class="info">
+      <h3>صليل الصوارم</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song14.mp3')">تشغيل</button>
+          <a href="song14.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 15 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 15">
+    <div class="info">
+      <h3>سوف نمضي للمعالي</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song15.mp3')">تشغيل</button>
+          <a href="song15.mp3" download class="download-btn">تحميل</a>
+
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 16 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 16">
+    <div class="info">
+      <h3>شريعة ربنا نور</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song16.mp3')">تشغيل</button>
+            <a href="song16.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 17 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 17">
+    <div class="info">
+      <h3>لنا المرهفات</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song17.mp3')">تشغيل</button>
+            <a href="song17.mp3" download class="download-btn">تحميل</a>
+
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 18 -->
+  <div class="song">
+    <img src="logo2.png" alt="نشيد 18">
+    <div class="info">
+      <h3>هلموا هلموا</h3>
+      <p class="category">إذاعة البيان</p>
+      <button onclick="playSong('song18.mp3')">تشغيل</button>
+            <a href="song18.mp3" download class="download-btn">تحميل</a>
+
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 19 -->
+  <div class="song">
+    <img src="logo3.png" alt="نشيد 19">
+    <div class="info">
+      <h3>أتينا بذبحٍ</h3>
+      <p class="category">أصداء</p>
+      <button onclick="playSong('song19.mp3')">تشغيل</button>
+            <a href="song19.mp3" download class="download-btn">تحميل</a>
+
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+
+  <!-- النشيد 20 -->
+  <div class="song">
+    <img src="logo3.png" alt="نشيد 20">
+    <div class="info">
+      <h3>حاوِلوا مِن غَيرِ جَدْوى</h3>
+      <p class="category">أصداء</p>
+      <button onclick="playSong('song20.mp3')">تشغيل</button>
+            <a href="song20.mp3" download class="download-btn">تحميل</a>
+    </div>
+    <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+  </div>
+</div>
+
+
+<div id="audio-player">
+  <audio id="player" controls>
+    <source src="song1.mp3" type="audio/mp3">
+    المتصفح لا يدعم تشغيل الصوت.
+  </audio>
+  <span class="time-info" id="time-info">0:00 / 0:00</span>
+</div>
+
+<script>
+// Dark Mode
+const toggleBtn = document.getElementById('toggle-mode');
+if(localStorage.getItem('darkMode')==='true'){
+  document.body.classList.add('dark-mode');
+  toggleBtn.textContent='وضع نهاري';
+}
+toggleBtn.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark-mode');
+  let isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDark);
+  toggleBtn.textContent = isDark ? 'وضع نهاري' : 'وضع ليلي';
+});
+
+// Audio Player
+const player = document.getElementById('player');
+const timeInfo = document.getElementById('time-info');
+function playSong(src){
+  player.src = src;
+  player.play();
+}
+
+// Like
+function likeSong(button){
+  let count = parseInt(button.textContent.replace('❤ ',''));
+  count++;
+  button.textContent = `❤ ${count}`;
+}
+
+// Search by name
+function searchSong(){
+  const filter = document.getElementById('search').value.toLowerCase();
+  const songs = document.querySelectorAll('.song');
+  songs.forEach(song => {
+    const title = song.querySelector('h3').textContent.toLowerCase();
+    const category = song.querySelector('.category').textContent.toLowerCase();
+    const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
+    let show = title.includes(filter);
+    if(categoryFilter !== 'all' && category !== categoryFilter) show = false;
+    song.style.display = show ? 'block' : 'none';
+  });
+}
+
+// Filter by category
+function filterByCategory(){
+  searchSong(); // يدمج مع البحث الحالي
+}
+
+// Time update
+player.addEventListener('timeupdate', ()=>{
+  let cur = formatTime(player.currentTime);
+  let dur = formatTime(player.duration);
+  timeInfo.textContent = `${cur} / ${dur}`;
+});
+function formatTime(time){
+  if(isNaN(time)) return '0:00';
+  let minutes = Math.floor(time/60);
+  let seconds = Math.floor(time%60);
+  if(seconds<10) seconds='0'+seconds;
+  return `${minutes}:${seconds}`;
+}
+// قائمة كل ملفات الأناشيد بالترتيب
+const songsList = [
+  'song1.mp3','song2.mp3','song3.mp3','song4.mp3','song5.mp3',
+  'song6.mp3','song7.mp3','song8.mp3','song9.mp3','song10.mp3',
+  'song11.mp3','song12.mp3','song13.mp3','song14.mp3','song15.mp3',
+  'song16.mp3','song17.mp3','song18.mp3','song19.mp3','song20.mp3'
+];
+
+let currentIndex = 0;
+
+function playSong(src){
+  player.src = src;
+  player.play();
+  currentIndex = songsList.indexOf(src); // تحديث المؤشر الحالي
+}
+
+// عند انتهاء النشيد الحالي، يشغل التالي تلقائيًا
+player.addEventListener('ended', ()=>{
+  currentIndex++;
+  if(currentIndex >= songsList.length) currentIndex = 0; // العودة للأول
+  playSong(songsList[currentIndex]);
+});
+</script>
+</body>
+</html>
