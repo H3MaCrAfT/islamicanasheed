@@ -57,7 +57,7 @@
       <input type="text" id="search" placeholder="ابحث عن نشيد...">
       <button onclick="searchSong()">بحث</button>
     </div>
-
+        
     <div id="filter-bar">
       <select id="categoryFilter" onchange="filterByCategory()">
         <option value="all">كل الفئات</option>
@@ -68,6 +68,28 @@
       </select>
     </div>
     <div class="playlist" id="playlist">
+                   <!-- النشيد 1 -->
+      <div class="song">
+        <div class="info">
+          <h3>نصبنا صدرنا</h3>
+          <p class="category">غير معروف</p>
+          <button onclick="playSong('song1.m4a')">تشغيل</button>
+          <a href="song1.m4a" download class="download-btn">تحميل</a>
+        </div>
+        <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+      </div>
+          
+   <!-- النشيد 1 -->
+        <div class="song">
+        <img src="Logo.jpg" alt="نشيد 1">
+        <div class="info">
+          <h3>قريبًا قريبًا</h3>
+          <p class="category">مؤسسة أجناد</p>
+          <button onclick="playSong('قريبًا قريبًا.mp3')">تشغيل</button>
+          <a href="قريبًا قريبًا.mp3" download class="download-btn">تحميل</a>
+        </div>
+        <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
+      </div>
               <!-- النشيد 1 -->
         <div class="song">
         <img src="Logo.jpg" alt="نشيد 1">
@@ -76,16 +98,6 @@
           <p class="category">مؤسسة أجناد</p>
           <button onclick="playSong('song23.mp3')">تشغيل</button>
           <a href="song23.mp3" download class="download-btn">تحميل</a>
-        </div>
-        <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
-      </div>
-                   <!-- النشيد 1 -->
-      <div class="song">
-        <div class="info">
-          <h3>نصبنا صدرنا</h3>
-          <p class="category">غير معروف</p>
-          <button onclick="playSong('song1.m4a')">تشغيل</button>
-          <a href="song1.m4a" download class="download-btn">تحميل</a>
         </div>
         <button class="like-btn" onclick="likeSong(this)">❤ 0</button>
       </div>
@@ -462,4 +474,5 @@
     </script>
     </body>
     </html>
+
 
